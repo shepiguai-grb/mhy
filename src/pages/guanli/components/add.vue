@@ -88,6 +88,18 @@ export default {
     },
     //添加
     add() {
+      if (!this.form.roleid) {
+        warningAlert('请选择所属角色')
+        return
+      }
+      if (!this.form.username) {
+        warningAlert('请输入用户名')
+        return
+      }
+      if (!this.form.password) {
+        warningAlert('请输入密码')
+        return
+      }
       requestGlyAdd(this.form).then((res) => {
         if (res.data.code == 200) {
           successAlert(res.data.msg)   //成功提示语
@@ -108,6 +120,18 @@ export default {
     },
     //编辑
     edit() {
+      if (!this.form.roleid) {
+        warningAlert('请选择所属角色')
+        return
+      }
+      if (!this.form.username) {
+        warningAlert('请输入用户名')
+        return
+      }
+      if (!this.form.password) {
+        warningAlert('请输入密码')
+        return
+      }
       //编辑请求
       requestGlyEdit(this.form).then((res) => {
         if (res.data.code == 200) {

@@ -102,6 +102,17 @@ export default {
       //在树形标签上加个ref='tree',用this.$refs.tree.getCheckedKeys()可以获取当前选中的节点的值
       //JSON.stringify把数据转换成字符串，后端要的格式是字符串类型的数组
       this.form.menus = JSON.stringify(this.$refs.tree.getCheckedKeys())
+
+
+      if (!this.form.rolename) {
+        warningAlert('请填写角色名称')
+        return
+      }
+      if (this.form.menus == '[]') {
+        warningAlert('请设置角色权限')
+        return
+      }
+
       //发送添加请求
       requestJsAdd(this.form).then((res) => {
         if (res.data.code == 200) {
@@ -127,6 +138,16 @@ export default {
     edit() {
       //获取修改的tree的key赋给form.menus
       this.form.menus = JSON.stringify(this.$refs.tree.getCheckedKeys())
+
+      if (!this.form.rolename) {
+        warningAlert('请填写角色名称')
+        return
+      }
+      if (this.form.menus == '[]') {
+        warningAlert('请设置角色权限')
+        return
+      }
+
       //发送修改请求
       requestJsEdit(this.form).then((res) => {
         if (res.data.code == 200) {

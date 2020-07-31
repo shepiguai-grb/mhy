@@ -10,16 +10,17 @@ Router.prototype.push = function push(location) {
 }
 
 //路由独享守卫(权限)
-function havePower() {
+function havePower(url) {
+  // console.log(store.state.login.user.menus_url)
   //判断用户登录后的权限有哪些
-  return store.state.user.menus_url.some((i) => { i == url })
+  return store.state.login.user.menus_url.some((i) => { return i == url })
 }
 
 const router = new Router({
   routes: [
     {
       path: '/login',
-      component: () => import('../pages/login/login')
+      component: () => import('../pages/login/login'),
     },
     {
       path: '/',
@@ -54,45 +55,45 @@ const router = new Router({
         },
         //商城管理
         {
-          path: 'sp_spfl',
+          path: 'spfl',
           component: () => import('../pages/sp_spfl/spfl'),
           beforeEnter(to, from, next) {
-            havePower('/sp_spfl') ? next() : next('/home')
+            havePower('/spfl') ? next() : next('/home')
           }
         },
         {
-          path: 'sp_spgg',
+          path: 'spgg',
           component: () => import('../pages/sp_spgg/spgg'),
           beforeEnter(to, from, next) {
-            havePower('/sp_spgg') ? next() : next('/home')
+            havePower('/spgg') ? next() : next('/home')
           }
         },
         {
-          path: 'sp_spgl',
+          path: 'spgl',
           component: () => import('../pages/sp_spgl/spgl'),
           beforeEnter(to, from, next) {
-            havePower('/sp_spgl') ? next() : next('/home')
+            havePower('/spgl') ? next() : next('/home')
           }
         },
         {
-          path: 'sp_hygl',
+          path: 'hygl',
           component: () => import('../pages/sp_hygl/hygl'),
           beforeEnter(to, from, next) {
-            havePower('/sp_hygl') ? next() : next('/home')
+            havePower('/hygl') ? next() : next('/home')
           }
         },
         {
-          path: 'sp_lbtgl',
+          path: 'lbtgl',
           component: () => import('../pages/sp_lbtgl/lbtgl'),
           beforeEnter(to, from, next) {
-            havePower('/sp_lbtgl') ? next() : next('/home')
+            havePower('/lbtgl') ? next() : next('/home')
           }
         },
         {
-          path: 'sp_mshd',
+          path: 'mshd',
           component: () => import('../pages/sp_mshd/mshd'),
           beforeEnter(to, from, next) {
-            havePower('/sp_mshd') ? next() : next('/home')
+            havePower('/mshd') ? next() : next('/home')
           }
         },
         {
@@ -112,7 +113,7 @@ router.beforeEach((to, form, next) => {
     return
   }
   //如果没登录，去的不是登录页面就要判断，中间层store.user是否有值，有值就代表登陆过了，没值就没登陆过
-  if (store.state.user) {
+  if (store.state.login.user) {
     next()
     return
   }

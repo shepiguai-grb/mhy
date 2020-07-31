@@ -15,7 +15,7 @@
             <i class="el-icon-setting"></i>
             <span slot="title">首页</span>
           </el-menu-item>
- <!--  
+          <!--  
           <el-submenu index="2">
             <template slot="title">
               <i class="el-icon-location"></i>
@@ -111,7 +111,7 @@ export default {
     }
   },
 
-  mounted() { console.log(this.user) },
+  mounted() { },
 }
 </script>
 

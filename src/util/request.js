@@ -6,28 +6,28 @@ import router from '../router/index'
 
 //请求拦截
 axios.interceptors.request.use((config) => {
-    // console.log(config)
+    // console.log(config) 
     //除了登录请求，其他的每次请求都得给config的headers设置authorization属性，值为token
     //这个值后端用来验证用户的每次操作，如果不设置请求头，那除了登录请求接口其他的接口都无法访问
     if (config.url != baseUrl + '/api/userlogin') {
-        config.headers.authorization = store.state.user.token
+        config.headers.authorization = store.state.login.user.token
     }
     return config
 })
 
 //响应拦截
-axios.interceptors.response.use(res => {
-    // console.log(res)
+axios.interceptors.response.use((res) => {
     //判断登录是否过期，即是否会掉线
     if (res.data.msg == '登录已过期或访问权限受限') {
         warningAlert(res.data.msg)
+        router.push('/login')
     }
-    router.push('/login')
-    return;
+    return res;
 })
 
 
 const baseUrl = '/api'
+// const baseUrl = ''
 
 
 //登录请求

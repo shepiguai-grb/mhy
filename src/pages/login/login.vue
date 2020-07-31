@@ -35,22 +35,21 @@ export default {
   },
   methods: {
     ...mapActions({
-      changeUser:'login/changeUser'
+      changeUser: 'login/changeUser'
     }),
     login() {
-      //跳转
-      // this.$router.push('/')
-      requestLogin(this.user).then((res)=>{
+      requestLogin(this.user).then((res) => {
         // console.log(res)
-         if(res.data.code ==200){
-           successAlert(res.data.msg)
-           //登录成功就用vuex保存用户信息
-           this.changeUser(res.data.list)
-           //跳转到首页
-           this.$router.push('/home')
-         }else {
-           warningAlert(res.data.msg)
-         }
+        if (res.data.code == 200) {
+          successAlert(res.data.msg)
+          //登录成功就用vuex保存用户信息
+          this.changeUser(res.data.list)
+          //  console.log(this.$store)  //没有引入
+          //跳转到首页
+          this.$router.push('/home')
+        } else {
+          warningAlert(res.data.msg)
+        }
       })
     }
   }

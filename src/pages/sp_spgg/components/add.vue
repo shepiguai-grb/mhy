@@ -92,10 +92,14 @@ export default {
     },
     //添加
     add() {
+      if (!this.form.specsname) {
+        warningAlert('请输入规格名称')
+        return
+      }
       //some用法:数组.some(函数)  some让数组里的每个值都执行一次函数，直到第一个返回true则停止返回true，如果全是false就返回false
       //判断规格框内是否为空
       if (this.attrArr.some((v) => { return v.value == '' })) {
-        warningAlert('属性规格不能为空');
+        warningAlert('请设置规格属性');
         return;
       }
       this.form.attrs = JSON.stringify(this.attrArr.map((v) => { return v.value }))
@@ -123,6 +127,10 @@ export default {
 
     //编辑
     edit() {
+       if (!this.form.specsname) {
+        warningAlert('请输入规格名称')
+        return
+      }
       //判断规格框内是否为空
       if (this.attrArr.some((v) => { return v.value == '' })) {
         warningAlert('属性规格不能为空');

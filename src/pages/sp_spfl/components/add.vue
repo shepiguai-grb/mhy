@@ -57,6 +57,7 @@
 import { requestCateDetail, requestCateAdd, requestCateEdit } from '../../../util/request'
 import { successAlert, warningAlert } from "../../../util/alert";
 import { mapGetters, mapActions } from "vuex";
+import router from '../../../router';
 export default {
   props: ['info'],
   computed: {
@@ -92,7 +93,7 @@ export default {
         warningAlert('只能上传图片文件')
         return
       }
-      
+
       //file是上传的文件
       var file = e.raw
       //把该文件生成一个URL地址，赋给imageUrl展示出来
@@ -119,6 +120,17 @@ export default {
     },
     //添加
     add() {
+      if (!this.form.catename) {
+        warningAlert('请输入分类名称')
+        return
+      }
+      if (this.form.pid != 0) {
+        if (!this.form.img) {
+          warningAlert('请添加图片')
+          return
+        }
+      }
+      //添加请求
       requestCateAdd(this.form).then((res) => {
         if (res.data.code == 200) {
           successAlert(res.data.msg)
@@ -140,15 +152,26 @@ export default {
     },
     //修改
     edit(id) {
-      requestCateEdit(this.form).then((res) => { 
-          if(res.data.code==200){
-              successAlert(res.data.msg)
-              this.hide()
-              this.empty()
-              this.requestList()
-          }else{
-              warningAlert(res.data.msg)
-          }
+      if (!this.form.catename) {
+        warningAlert('请输入分类名称')
+        return
+      }
+      if (this.form.pid != 0) {
+        if (!this.form.img) {
+          warningAlert('请添加图片')
+          return
+        }
+      }
+      //修改请求
+      requestCateEdit(this.form).then((res) => {
+        if (res.data.code == 200) {
+          successAlert(res.data.msg)
+          this.hide()
+          this.empty()
+          this.requestList()
+        } else {
+          warningAlert(res.data.msg)
+        }
       })
     },
   },

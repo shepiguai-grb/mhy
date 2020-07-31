@@ -12,6 +12,7 @@ export const mutations = {
         state.user = user
         //vuex有个问题就是刷新也页面后，存储的值(即用户信息)就会没有，这里就会造成用户登陆了后如果刷新页面就会弹出到登录页
         //所以我们用一个刷新页面不会消失的东西(即sessionStorage)，来存储用户信息，实现刷新不会清空用户信息
+        // console.log(state.user)
         if (user) {
             //注意：sessionStorage存进去的数据会直接变成字符串，导致数据会发生变化，所以要先转成字符串在存进去
             sessionStorage.setItem('user', JSON.stringify(state.user))

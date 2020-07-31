@@ -148,6 +148,11 @@ export default {
     },
     //添加
     add() {
+      if (!this.form.title) {
+        warningAlert('菜单名称不能为空')
+        return
+      }
+      //添加请求
       requestadd(this.form).then((res) => {
         //后端返回的该数据为200，则添加成功
         if (res.data.code == 200) {
@@ -172,7 +177,11 @@ export default {
     },
     //修改
     update() {
-      //this.form是传给数据库的参数，即修改好的值
+      if (!this.form.title) {
+        warningAlert('菜单名称不能为空')
+        return
+      }
+      //修改请求，this.form是传给数据库的参数，即修改好的值
       requestedit(this.form).then((res) => {
         // console.log(this.form)
         if (res.data.code == 200) {
